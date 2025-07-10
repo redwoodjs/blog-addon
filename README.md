@@ -15,7 +15,7 @@ To use your editor's AI agent support to add this addon for you (e.g. Cursor, VS
 4. Send the following chat prompt in the chat window - it will do the rest for you!
 
 ```txt
-Please apply this addon to my RedwoodSDK project using these instructions: https://raw.githubusercontent.com/redwoodjs/blog-addon/refs/heads/main/README.md
+Please install this addon to my RedwoodSDK project using these instructions: https://raw.githubusercontent.com/redwoodjs/blog-addon/refs/heads/main/README.md
 ```
 
 Alternatively, to apply this addon manually, simply follow the steps below.
@@ -28,7 +28,7 @@ import { compileMarkdown } from "@content-collections/markdown";
 
 const posts = defineCollection({
   name: "posts",
-  directory: "content/posts",
+  directory: "./src/app/content/posts",
   include: "*.md",
   schema: (z) => ({
     title: z.string(),
@@ -96,13 +96,83 @@ Add the following to your `.gitignore` file.
 
 ### 5. Inside the `src/app/` directory, create a `content/posts` folder
 
-Inside the `src/app` directory, create a folder called `content/posts`. Then, inside, create a new file called ``. Add the following content:
+Inside the `src/app` directory, create a folder called `content/posts`. Then, inside, create a new file called `.keep`.
 
-```markdown
----
-title: "The Day a Goat Hijacked Our Drone Test"
 ---
 
-It was supposed to be a routine day for the ContentCrafter Inc. team. The Collectors were off on another adventure, the Validators were ready with their magnifying glasses, and the Transformers had their creative juices flowing. Little did we know, a mischievous goat was about to turn our day upside down.
+## Additional Documentation for Using the Add On within your Project
+
+### Defining Content Collections
+
+All of yor content collections are defined within the `content-collection.js` file and leverages [Zod](https://zod.dev/) for type safety.
+
+Within the `defineCollection` object, you can adjust the `schema` for additional front matter.
+
+To add a new content type, you'll need to define another collection and add it to the `collections` array.
+
+For example:
+
+```tsx
+// content-collections.ts
+...
+const docs = defineCollection({
+  name: "posts",
+  directory: "src/app/content/docs",
+  include: "*.md",
+  schema: z.object({
+    title: z.string(),
+    slug: z.string(),
+  }),
+  transform: async (document, context) => {
+    const html = await compileMarkdown(context, document);
+    return {
+      ...document,
+      html,
+    };
+  },
+});
+
+export default defineConfig({
+  collections: [posts, docs],
+});
 ```
+
+### Creating Content
+
+Within the `src/app/content/posts` folder, add all of your markdown files. Of course, you can rename `posts` to `docs` or add additional content types. Just be sure to update the `content-collections.mts` file accordingly.
+
+### Querying Blog Content
+
+Here's an example of several different ways you can query your data. These queries can be made, directly within a React server component, or referenced from an external file.
+
+```ts
+import { allPosts } from "content-collections";
+
+export function getAllPosts() {
+  return allPosts.sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
+}
+
+export function getPostBySlug(slug: string) {
+  return allPosts.find((p) => p._meta.path.replace(/\.md$/, "") === slug);
+}
+
+export function getLatestPosts(count: number) {
+  return getAllPosts().slice(0, count);
+}
+
+export function getPublicPosts() {
+  return getAllPosts().filter((post) => !post.protected);
+}
+
+export function getProtectedPosts() {
+  return getAllPosts().filter((post) => post.protected);
+}
+```
+
+---
+
+You can find additional details and documentation, including a [demo repo, here.](https://github.com/mj-meyer/rwsdk-content-collections)
+
 
