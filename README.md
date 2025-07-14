@@ -15,7 +15,11 @@ To use your editor's AI agent support to add this addon for you (e.g. Cursor, VS
 4. Send the following chat prompt in the chat window - it will do the rest for you!
 
 ```txt
-Please install this addon to my RedwoodSDK project using these instructions: https://raw.githubusercontent.com/redwoodjs/blog-addon/refs/heads/main/README.md
+Please run the following and then follow the install instructions:
+
+curl -s https://raw.githubusercontent.com/ahaywood/blog-addon/refs/heads/main/README.md -o /tmp/blog-addon-readme.md && cat /tmp/blog-addon-readme.md
+
+Use these instructions to install the add-on in my RedwoodSDK project.
 ```
 
 Alternatively, to apply this addon manually, simply follow the steps below.
@@ -60,9 +64,9 @@ Add the following dependencies to your `package.json` file:
 }
 ```
 
-Then run `pnpm install`
+### 3. Run `pnpm install`
 
-### 3. Update `vite.config.mts`:
+### 4. Update `vite.config.mts`:
 
 Add the following to your `vite.config.mts` file:
 
@@ -75,7 +79,7 @@ plugins: [
 ],
 ```
 
-### 4. Update `tsconfig.json`
+### 5. Update `tsconfig.json`
 
 Add the following to your `tsconfig.json` file. Inside, the `paths` definition:
 
@@ -86,7 +90,7 @@ Add the following to your `tsconfig.json` file. Inside, the `paths` definition:
 },
 ```
 
-### 5. Update `.gitignore`
+### 6. Update `.gitignore`
 
 Add the following to your `.gitignore` file.
 
@@ -94,9 +98,13 @@ Add the following to your `.gitignore` file.
 .content-collections
 ```
 
-### 5. Inside the `src/app/` directory, create a `content/posts` folder
+### 7. Inside the `src/app/` directory, create a `content/posts` folder
 
-Inside the `src/app` directory, create a folder called `content/posts`. Then, inside, create a new file called `.keep`.
+Inside the `src/app` directory, create a folder called `content/posts`.
+
+### 8. Run `pnpm dev`.
+
+When you run `pnpm dev` it will automatically generate the `.content-collections` folder.
 
 ---
 
