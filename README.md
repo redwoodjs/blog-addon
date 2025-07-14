@@ -32,7 +32,7 @@ import { compileMarkdown } from "@content-collections/markdown";
 
 const posts = defineCollection({
   name: "posts",
-  directory: "./src/app/content/posts",
+  directory: "./src/app/addon/blog/content/",
   include: "*.md",
   schema: (z) => ({
     title: z.string(),
@@ -98,11 +98,19 @@ Add the following to your `.gitignore` file.
 .content-collections
 ```
 
-### 7. Inside the `src/app/` directory, create a `content/posts` folder
+### 7. Download this addon
 
-Inside the `src/app` directory, create a folder called `content/posts`.
+```
+npx degit redwoodjs/blog-addon/src _tmp_blog_addon
+```
 
-### 8. Run `pnpm dev`.
+### 8. Copy files
+
+Copy the `src` directory from this addon into your project's root directory. This will add the following directories:
+
+- `src/blog`: Content files and components for the blog
+
+### 9. Run `pnpm dev`.
 
 When you run `pnpm dev` it will automatically generate the `.content-collections` folder.
 
@@ -112,7 +120,7 @@ When you run `pnpm dev` it will automatically generate the `.content-collections
 
 ### Defining Content Collections
 
-All of yor content collections are defined within the `content-collection.js` file and leverages [Zod](https://zod.dev/) for type safety.
+All of yor content collections are defined within the `content-collection.ts` file and leverages [Zod](https://zod.dev/) for type safety.
 
 Within the `defineCollection` object, you can adjust the `schema` for additional front matter.
 
@@ -147,11 +155,11 @@ export default defineConfig({
 
 ### Creating Content
 
-Within the `src/app/content/posts` folder, add all of your markdown files. Of course, you can rename `posts` to `docs` or add additional content types. Just be sure to update the `content-collections.mts` file accordingly.
+Within the `src/app/content/posts` folder, add all of your markdown files. Of course, you can rename `posts` to `docs` or add additional content types. Just be sure to update the corresponding `directory` property within your `content-collections.ts` file accordingly.
 
 ### Querying Blog Content
 
-Here's an example of several different ways you can query your data. These queries can be made, directly within a React server component, or referenced from an external file.
+Here's an example of several different ways you can query your data. These queries can be made directly within a React server component, or referenced from an external file.
 
 ```ts
 import { allPosts } from "content-collections";
