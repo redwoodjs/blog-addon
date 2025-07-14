@@ -98,7 +98,7 @@ Add the following to your `.gitignore` file.
 .content-collections
 ```
 
-### 7. Download this addon
+### 7. Download the addon files
 
 ```
 npx degit ahaywood/blog-addon/src _tmp_blog_addon
