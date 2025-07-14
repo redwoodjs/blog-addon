@@ -29,13 +29,18 @@ Alternatively, to apply this addon manually, simply follow the steps below.
 ```tsx
 import { defineCollection, defineConfig } from "@content-collections/core";
 import { compileMarkdown } from "@content-collections/markdown";
+import { z } from "zod";
 
 const posts = defineCollection({
   name: "posts",
-  directory: "./src/app/addon/blog/content/",
+  directory: "./src/blog/content/",
   include: "*.md",
-  schema: (z) => ({
+  schema: z.object({
     title: z.string(),
+    summary: z.string(),
+    date: z.coerce.date(),
+    author: z.string(),
+    protected: z.boolean().optional(),
   }),
   transform: async (document, context) => {
     const html = await compileMarkdown(context, document); // HTML compilation for Workers
