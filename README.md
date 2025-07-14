@@ -17,7 +17,7 @@ To use your editor's AI agent support to add this addon for you (e.g. Cursor, VS
 ```txt
 Please run the following and then follow the install instructions:
 
-curl -s https://raw.githubusercontent.com/ahaywood/blog-addon/refs/heads/main/README.md -o /tmp/blog-addon-readme.md && cat /tmp/blog-addon-readme.md
+curl -s https://raw.githubusercontent.com/redwoodjs/blog-addon/refs/heads/main/README.md -o /tmp/blog-addon-readme.md && cat /tmp/blog-addon-readme.md
 
 Use these instructions to install the add-on in my RedwoodSDK project.
 ```
@@ -106,7 +106,7 @@ Add the following to your `.gitignore` file.
 ### 7. Download the addon files
 
 ```
-npx degit ahaywood/blog-addon/src _tmp_blog_addon
+npx degit redwoodjs/blog-addon/src _tmp_blog_addon
 ```
 
 ### 8. Copy files
