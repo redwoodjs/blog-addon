@@ -101,7 +101,7 @@ Add the following to your `.gitignore` file.
 ### 7. Download this addon
 
 ```
-npx degit redwoodjs/blog-addon/src _tmp_blog_addon
+npx degit ahaywood/blog-addon/src _tmp_blog_addon
 ```
 
 ### 8. Copy files
@@ -109,6 +109,23 @@ npx degit redwoodjs/blog-addon/src _tmp_blog_addon
 Copy the `src` directory from this addon into your project's root directory. This will add the following directories:
 
 - `src/blog`: Content files and components for the blog
+
+### 9. Update `src/worker.tsx`
+
+Add the following routes:
+
+```tsx
+import {blogRoutes} from "./blog/routes"
+
+export default defineApp([
+  // ...
+  render(Document, [
+    // ...
+    prefix("/blog", blogRoutes),
+  ]),
+]);
+```
+
 
 ### 9. Run `pnpm dev`.
 
