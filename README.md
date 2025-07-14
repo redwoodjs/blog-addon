@@ -120,7 +120,10 @@ Copy the `src` directory from this addon into your project's root directory. Thi
 Add the following routes:
 
 ```tsx
+// ...
+import { render, route, prefix } from "rwsdk/router";
 import {blogRoutes} from "./blog/routes"
+// ...
 
 export default defineApp([
   // ...
