@@ -88,9 +88,9 @@ plugins: [
 
 Add the following to your `tsconfig.json` file. Inside, the `paths` definition:
 
-```json
+```jsonc
 "paths": {
-  ...
+  // ...
   "content-collections": ["./.content-collections/generated"]
 },
 ```
