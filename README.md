@@ -4,7 +4,7 @@ This addon creates a blog for your RedwoodSDK project.
 
 ## How to add to your project
 
-These instructions you are starting with a RedwoodSDK project, for example from `npx create-rwsdk -t minimal my-project-name`.
+These instructions assume you are starting with a RedwoodSDK project, for example from `npx create-rwsdk -t minimal my-project-name`.
 
 ### 0. Decide whether to add this manually or via AI
 
